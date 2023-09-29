@@ -3,7 +3,7 @@ run-name: ${{ github.actor }}
 
 on:
   schedule:
-    - cron: "30 9 * * 1,5"   # Run on Weekdays at 9:30AM UTC
+    - cron: "00 01 * * 1-5"   # Run on Weekdays at 1AM UTC
 
 permissions:
   id-token: write
@@ -19,4 +19,4 @@ jobs:
       apply: true
       workspace: ${{ matrix.environment }}
       working-dir: infrastructure/scaffold
-      role-to-assume: arn:aws:iam::760772947412:role/github-actions/gh-oidc
+      role-to-assume: arn:aws:iam::169740125934:role/github-actions/gh-oidc

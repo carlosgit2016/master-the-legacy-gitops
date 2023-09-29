@@ -8,7 +8,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "master-the-legacy"
+    bucket = "master-the-legacy-tf-state"
     key    = "tf-states/infrastructure/terraform.tfstate"
     region = "us-east-1"
   }

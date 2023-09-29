@@ -19,7 +19,7 @@ on:
           - votingapp-results
 
 env:
-  ROLE_TO_ASSUME: arn:aws:iam::760772947412:role/github-actions/gh-oidc
+  ROLE_TO_ASSUME: arn:aws:iam::169740125934:role/github-actions/gh-oidc
   AWS_REGION: us-east-1
   ECR_REPO: legacy-ecr-repo
 

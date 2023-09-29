@@ -25,4 +25,4 @@ jobs:
       fmt-check: ${{ github.event_name == 'pull_request' }}
       workspace: "dev"
       working-dir: infrastructure/scaffold
-      role-to-assume: arn:aws:iam::760772947412:role/github-actions/gh-oidc
+      role-to-assume: arn:aws:iam::169740125934:role/github-actions/gh-oidc

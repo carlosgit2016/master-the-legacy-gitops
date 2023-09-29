@@ -6,7 +6,7 @@ module "gh_oidc" {
   source = "github.com/philips-labs/terraform-aws-github-oidc?ref=v0.7.1"
 
   openid_connect_provider_arn = module.oidc_provider.openid_connect_provider.arn
-  repo                        = "master-the-legacy/gitops"
+  repo                        = "carlosgit2016/gitops"
   role_name                   = "gh-oidc"
 
   # optional
@@ -20,7 +20,7 @@ module "gh_oidc" {
     test     = "StringLike"
     variable = "token.actions.githubusercontent.com:sub"
     values = [
-      "repo:master-the-legacy/votingapp-results:*",
+      "repo:carlosgit2016/votingapp-results:*",
     ]
   }]
 }
