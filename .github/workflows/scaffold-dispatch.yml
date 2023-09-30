@@ -24,7 +24,6 @@ on:
                 - destroy
                     
 env:
-    # ROLE_TO_ASSUME: arn:aws:iam::760772947412:role/github-actions/gh-oidc
     AWS_REGION: us-east-1
 
 
@@ -41,4 +40,4 @@ jobs:
       fmt-check: false
       workspace: ${{ inputs.environment  }}
       working-dir: infrastructure/scaffold
-      role-to-assume: arn:aws:iam::760772947412:role/github-actions/gh-oidc
+      role-to-assume: arn:aws:iam::169740125934:role/github-actions/gh-oidc

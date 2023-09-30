@@ -42,6 +42,11 @@ fix/specific-fix-name---------------/
 
 ### Infrastructure
 
+#### Create new bucket for terraform state
+```bash
+aws s3api create-bucket --region us-east-1 --bucket master-the-legacy-tf-state --acl private
+```
+
 #### Scaffold development workflow
 
 This repository contains a scaffold development workflow that comments the terraform plan to a Pull request whenever a new one is opened.

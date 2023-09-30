@@ -2,11 +2,9 @@ name: vanish
 run-name: "Destroying in case we forgot"
 on:
   schedule:
-    - cron: "0 13 * * 1,5"  # Every 1PM UTC Mon-Fri
-    - cron: "0 23 * * SAT,SUN"    # Every SAT-SUN at 11PM UTC
+    - cron: "0 05 * * *"  # Every 5AM UTC Mon-Fri
 
 env: 
-  ROLE_TO_ASSUME: arn:aws:iam::760772947412:role/github-actions/gh-oidc
   AWS_REGION: us-east-1
 
 permissions:
@@ -25,4 +23,4 @@ jobs:
       fmt-check: false
       workspace: ${{ matrix.environment }}
       working-dir: infrastructure/scaffold
-      role-to-assume: arn:aws:iam::760772947412:role/github-actions/gh-oidc
+      role-to-assume: arn:aws:iam::169740125934:role/github-actions/gh-oidc
