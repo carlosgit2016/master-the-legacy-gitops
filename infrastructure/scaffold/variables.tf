@@ -15,5 +15,5 @@ variable "project" {
 }
 
 variable "legacy-vpc-id" {
-  default = "vpc-0c972480e791df4a8"
+  default = "vpc-07f21b0f96ab6ddf8"
 }

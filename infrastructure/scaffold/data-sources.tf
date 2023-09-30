@@ -1,3 +1,7 @@
+locals {
+  vpc_id = data.aws_vpc.legacy-vpc.id
+}
+
 data "aws_vpc" "legacy-vpc" {
   id = var.legacy-vpc-id
 }
@@ -16,8 +20,4 @@ data "aws_security_group" "eks-cluster-sg" {
   }
 
   depends_on = [aws_eks_cluster.eks]
-}
-
-locals {
-  vpc_id = data.aws_vpc.legacy-vpc.id
 }
