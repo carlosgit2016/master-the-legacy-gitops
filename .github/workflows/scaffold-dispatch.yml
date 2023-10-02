@@ -1,38 +1,41 @@
 name: scaffold-dispatch
 run-name: ${{ github.actor }}
 
-on: 
-    workflow_dispatch:
-        inputs:
-            environment:
-                description: 'Environment, this will be used as workspace'
-                required: true
-                default: 'dev'
-                type: choice
-                options:
-                    - dev
-                    - staging
-                    - prod
-            action:
-              description: "Chose between create or destroy the environment"
-              required: true
-              type: choice
-              default: create
-              options:
-                - plan-only # Only for visual, if plan only and destroy are selected, then it will plan a destroy but not apply
-                - create 
-                - destroy
-                    
-env:
-    AWS_REGION: us-east-1
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment, this will be used as workspace"
+        required: true
+        default: "dev"
+        type: choice
+        options:
+          - dev
+          - staging
+          - prod
+      action:
+        description: "Chose between create or destroy the environment"
+        required: true
+        type: choice
+        default: create
+        options:
+          - plan-only # Only for visual, if plan only and destroy are selected, then it will plan a destroy but not apply
+          - create
+          - destroy
+      role_to_assume:
+        description: "Role to assume in AWS"
+        default: arn:aws:iam::169740125934:role/github-actions/gh-oidc
+        type: string
 
+env:
+  AWS_REGION: us-east-1
 
 permissions:
-    id-token: write
-    contents: read
+  id-token: write
+  contents: read
 
 jobs:
-  scaffold:
+  scaffold-infrastructure:
     uses: ./.github/workflows/terraform.yml
     with:
       apply: ${{ inputs.action != 'plan-only' }}
@@ -40,4 +43,26 @@ jobs:
       fmt-check: false
       workspace: ${{ inputs.environment  }}
       working-dir: infrastructure/scaffold
-      role-to-assume: arn:aws:iam::169740125934:role/github-actions/gh-oidc
+      role-to-assume: ${{ inputs.role_to_assume }}
+  scaffold-k8sconfig:
+    runs-on: ubuntu-latest
+    if: inputs.action == 'create'
+    needs: scaffold-infrastructure
+    defaults:
+      run:
+        working-directory: infrastructure/scaffold/kubernetes-config
+    env:
+      WORKSPACE: ${{ inputs.environment }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: ${{ inputs.role_to_assume }}
+          role-session-name: cd
+          aws-region: us-east-1
+      - run: terraform init
+      - run: terraform workspace select $WORKSPACE
+      - run: terraform state list | grep "kubernetes_config_map.aws_auth_patch" && terraform state rm "kubernetes_config_map.aws_auth_patch"
+      - run: terraform import kubernetes_config_map.aws_auth_patch kube-system/aws-auth
+      - run: terraform apply --auto-approve

@@ -16,7 +16,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  terraform-workflow:
+  scaffold-infrastructure:
     uses: ./.github/workflows/terraform.yml
     with:
       apply: ${{ github.ref_name == 'main' }}
