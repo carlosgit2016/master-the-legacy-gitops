@@ -48,7 +48,6 @@ resource "aws_eks_cluster" "eks" {
     ctf     = "WW91IGdvdCBpdCEgbmljZS4="
   }
 
-
 }
 
 resource "aws_eks_addon" "example" {
@@ -57,6 +56,7 @@ resource "aws_eks_addon" "example" {
   resolve_conflicts_on_update = "PRESERVE"
 }
 
+# Cluster outputs
 output "endpoint" {
   value = aws_eks_cluster.eks.endpoint
 }
