@@ -1,10 +1,23 @@
+locals {
+  vpc_endpoint_names = toset([
+    "ssm",
+    "eks",
+    "ec2messages",
+    "ssmmessages",
+    "ec2",
+    "ecr.api",
+    "ecr.dkr",
+  ])
+}
+
 # VPC Endpoints
 # https://docs.aws.amazon.com/whitepapers/latest/aws-privatelink/what-are-vpc-endpoints.html
 resource "aws_vpc_endpoint" "vpce" {
   for_each = local.vpc_endpoint_names
   # AWS services that integrate with AWS Private Link
   # https://docs.aws.amazon.com/vpc/latest/privatelink/aws-services-privatelink-support.html
-  service_name      = "com.amazonaws.us-east-1.${each.value}"
+  # Check /var/log/cloud-init-output.log this file log in case the node fail to join the cluster
+  service_name      = "com.amazonaws.eu-north-1.${each.value}"
   vpc_endpoint_type = "Interface"
   vpc_id            = data.aws_vpc.legacy-vpc.id
 

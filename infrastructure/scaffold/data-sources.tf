@@ -3,7 +3,12 @@ locals {
 }
 
 data "aws_vpc" "legacy-vpc" {
-  id = var.legacy-vpc-id
+  filter {
+    name = "tag:Name"
+    values = [
+      "legacy-vpc"
+    ]
+  }
 }
 
 data "aws_subnets" "eks_subnets" {

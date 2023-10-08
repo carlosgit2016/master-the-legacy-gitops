@@ -1,7 +1,7 @@
 locals {
   eks_availability_zones = toset([
-    "us-east-1a",
-    "us-east-1b",
+    "eu-north-1a",
+    "eu-north-1b",
   ])
 }
 

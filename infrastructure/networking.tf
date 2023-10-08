@@ -4,6 +4,9 @@ resource "aws_vpc" "legacy-vpc" {
   instance_tenancy     = "default"
   enable_dns_support   = true # Defaults to true, but for reference since EKS nodes needs this to be true in order to work properly
   enable_dns_hostnames = true
+  tags = {
+    "Name" = "legacy-vpc"
+  }
 
 }
 
