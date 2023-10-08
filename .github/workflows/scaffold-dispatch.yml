@@ -27,9 +27,6 @@ on:
         default: arn:aws:iam::169740125934:role/github-actions/gh-oidc
         type: string
 
-env:
-  AWS_REGION: us-east-1
-
 permissions:
   id-token: write
   contents: read
@@ -63,6 +60,8 @@ jobs:
           aws-region: us-east-1
       - run: terraform init
       - run: terraform workspace select $WORKSPACE
-      - run: terraform state list | grep "kubernetes_config_map.aws_auth_patch" && terraform state rm "kubernetes_config_map.aws_auth_patch"
+      - id: remove
+        run: terraform state list | grep "kubernetes_config_map.aws_auth_patch" && terraform state rm "kubernetes_config_map.aws_auth_patch"
+        continue-on-error: true
       - run: terraform import kubernetes_config_map.aws_auth_patch kube-system/aws-auth
       - run: terraform apply --auto-approve

@@ -1,5 +1,5 @@
 terraform {
-  required_version = "~> 1.5.3"
+  required_version = ">= 1.5.3, < 2.0.0"
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -22,6 +22,16 @@ data "aws_eks_cluster" "example" {
 
 data "aws_eks_cluster_auth" "example" {
   name = "${terraform.workspace}-master-cluster"
+}
+
+provider "aws" {
+  region = "eu-north-1"
+  default_tags {
+    tags = {
+      project = "master-the-legacy"
+      owners  = "cflor"
+    }
+  }
 }
 
 provider "kubernetes" {

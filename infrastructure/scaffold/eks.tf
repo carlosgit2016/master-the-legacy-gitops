@@ -3,6 +3,7 @@
 
 
 ### EKS Control Plane ###
+# EKS throubleshooting https://docs.aws.amazon.com/eks/latest/userguide/troubleshooting.html
 resource "aws_eks_cluster" "eks" {
   name     = "${terraform.workspace}-master-cluster" # The name must be unique within the AWS Region and AWS account
   role_arn = aws_iam_role.legacy_eks_role.arn

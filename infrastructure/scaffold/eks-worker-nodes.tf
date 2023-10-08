@@ -6,7 +6,7 @@ resource "aws_eks_node_group" "node-group-0" {
   node_role_arn   = aws_iam_role.legacy_eks-worker_role.arn
   subnet_ids      = [data.aws_subnets.eks_subnets.ids[1]]
   capacity_type   = "SPOT"
-  instance_types  = ["t3.small", "t3a.small"]
+  instance_types  = ["t3.micro"]
 
   scaling_config {
     desired_size = 1
@@ -33,7 +33,7 @@ resource "aws_eks_node_group" "node-group-1" {
   node_role_arn   = aws_iam_role.legacy_eks-worker_role.arn
   subnet_ids      = [data.aws_subnets.eks_subnets.ids[0]]
   capacity_type   = "SPOT"
-  instance_types  = ["t3.small", "t3a.small"]
+  instance_types  = ["t3.micro"]
 
   scaling_config {
     desired_size = 1
