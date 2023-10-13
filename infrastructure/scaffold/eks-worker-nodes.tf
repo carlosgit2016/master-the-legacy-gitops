@@ -9,13 +9,13 @@ resource "aws_eks_node_group" "node-group-0" {
   instance_types  = ["t3.micro"]
 
   scaling_config {
-    desired_size = 1
-    max_size     = 2
+    desired_size = 3
+    max_size     = 3
     min_size     = 1
   }
-  lifecycle {
-    ignore_changes = [scaling_config[0].desired_size]
-  }
+  # lifecycle {
+  #   ignore_changes = [scaling_config[0].desired_size]
+  # }
   update_config {
     max_unavailable = 1
   }
@@ -36,13 +36,13 @@ resource "aws_eks_node_group" "node-group-1" {
   instance_types  = ["t3.micro"]
 
   scaling_config {
-    desired_size = 1
-    max_size     = 2
+    desired_size = 3
+    max_size     = 3
     min_size     = 1
   }
-  lifecycle {
-    ignore_changes = [scaling_config[0].desired_size]
-  }
+  # lifecycle {
+  #   ignore_changes = [scaling_config[0].desired_size]
+  # }
   update_config {
     max_unavailable = 1
   }
