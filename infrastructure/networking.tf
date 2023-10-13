@@ -15,6 +15,6 @@ resource "aws_vpc" "legacy-vpc" {
 resource "aws_subnet" "eks_subnets" {
   for_each          = local.eks_availability_zones
   vpc_id            = aws_vpc.legacy-vpc.id
-  cidr_block        = "10.0.${index(tolist(local.eks_availability_zones), each.value) + 1}.0/24"
+  cidr_block        = "10.0.${index(tolist(local.eks_availability_zones), each.value) + 1}.0/24" # 254 IPs available to pods with this configuration
   availability_zone = each.value # Ensure multi zones
 }

@@ -1,5 +1,18 @@
 # Master The Legacy Project
 
+- [Master The Legacy Project](#master-the-legacy-project)
+  - [Overview](#overview)
+    - [Branch strategy](#branch-strategy)
+      - [Release flow](#release-flow)
+    - [Infrastructure](#infrastructure)
+      - [Create new bucket for terraform state](#create-new-bucket-for-terraform-state)
+      - [Scaffold development workflow](#scaffold-development-workflow)
+      - [Scaffold dispatch workflow](#scaffold-dispatch-workflow)
+      - [Local terraform](#local-terraform)
+    - [EKS](#eks)
+      - [Connecting to the cluster](#connecting-to-the-cluster)
+
+
 ## Overview
 
 Welcome to the Master The Legacy Project! In this collaborative effort, two enthusiastic colleagues come together to tackle the challenge of transforming a dated legacy infrastructure into a cutting-edge next-generation environment. This project is designed not only to learn and practice new technologies but also to apply best practices in the field of DevOps, Cloud Engineering, and Site Reliability Engineering.
@@ -42,6 +55,8 @@ fix/specific-fix-name---------------/
 
 ### Infrastructure
 
+![infra](./images/eks_infra.png)
+
 #### Create new bucket for terraform state
 ```bash
 aws s3api create-bucket --region us-east-1 --bucket master-the-legacy-tf-state --acl private
@@ -54,6 +69,7 @@ This repository contains a scaffold development workflow that comments the terra
 Also it applies the infrastructure from scaffold folder once merged to `main`.
 
 > Note: The workspace/environment is hard coded as `dev`. TODO: figure out a way to promote across environments, should we plan/apply to all workspaces at once ? (we can use matrix to that)
+
 #### Scaffold dispatch workflow
 
 This repository contains a scaffold workflow in order to easily create or destroy the environment through a dispatcher (**manually**).
